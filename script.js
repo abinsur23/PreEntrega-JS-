@@ -1,33 +1,40 @@
 
-let nombreUser = prompt("Hola. Cual es tu nombre?")
+class Vehiculo {
+  constructor(dominio, marca, modelo) {
+    this.dominio = dominio;
+    this.marca = marca;
+    this.modelo = modelo;
+  }
+}
 
+const vehiculo1 = new Vehiculo("abc123", "ford", "fiesta");
+const vehiculo2 = new Vehiculo("abc456", "fiat", "palio");
+const vehiculo3 = new Vehiculo("abc789", "renault", "clio");
 
-const dolarOficial = 235.19;
+const vehiculosEnPlaya = [vehiculo1, vehiculo2, vehiculo3];
 
-while (true) {
-  let precioJuegoDolar = prompt(`Hola ${nombreUser} Ingresa el precio del juego en dólares`);
-  let descuento = prompt("¿Tienes algún descuento? Ingresa el porcentaje (solo el número, sin el signo de porcentaje)");
-  alert(`${nombreUser} Recuerda que el calculo esta hecho en base al precio del dolar oficilal de hoy que es $${dolarOficial}`)
+// Mediante un prompt consultamos qué vehículo busca.
+let dominioBuscado = prompt("¿Cuál es el dominio del vehículo que estás buscando?");
 
-    //en este condicional pregunto si tiene algun descuento, en caso de que si hago el calculo pero en caso de que no soolo hago un alert con el resultado de el precio convertido a peso mas los impuestos.
+// Buscamos el vehículo en el array según el dominio ingresado.
+const vehiculoBuscado = vehiculosEnPlaya.find(vehiculo => vehiculo.dominio === dominioBuscado);
 
+// Verificamos si se encontró el vehículo y mostramos la información correspondiente.
+if (vehiculoBuscado) {
+  let mensaje = "El vehículo con dominio " + vehiculoBuscado.dominio + " se encuentra en la playa Libres Del Sur.";
+  let respuesta = confirm(mensaje + " ¿Sabes cuál es la documentación necesaria para liberar el vehículo?");
 
-  if (descuento > 0) {
-    let precioDescuento = precioJuegoDolar * (1 - descuento / 100); 
-    let precioJuegoPesos = precioDescuento * dolarOficial;
-    let impuestos = precioJuegoPesos * 0.74; 
-    let precioJuegoTotal = precioJuegoPesos + impuestos; 
-    alert("El precio del juego en pesos, incluyendo impuestos y descuento es: $" + precioJuegoTotal);
+  if (respuesta) {
+    alert("¡Perfecto! Estás al tanto de la documentación necesaria.");
   } else {
-    let precioJuegoPesos = precioJuegoDolar * dolarOficial; 
-    let impuestos = precioJuegoPesos * 0.74; 
-    let precioJuegoTotal = precioJuegoPesos + impuestos; 
-    alert("El precio del juego en pesos, incluyendo impuestos, es: $" + precioJuegoTotal);
-  }
+    let listaDocumentos = "Documentación necesaria:\n\n" +
+      "- Cédula verde o azul según corresponda.\n" +
+      "- Licencia de conducir vigente.\n" +
+      "- Comprobante de cobertura del seguro.\n" +
+      "- DNI original.";
 
-  let seguirCalculando = confirm("¿Deseas seguir calculando precios de juegos?");
-
-  if (!seguirCalculando) {
-    break;
+    alert(listaDocumentos);
   }
+} else {
+  alert("El vehículo no se encuentra en ninguna playa.");
 }
